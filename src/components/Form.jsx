@@ -48,10 +48,8 @@ const Form = () => {
     published: false,
   });
   const [editIndex, setEditIndex] = useState(null);
-  const [formVisible, setFormVisible] = useState(false); // Stato per gestire la visibilità del form
-  const [backgroundColor, setBackgroundColor] = useState("#ffffff"); // Stato per gestire il colore di sfondo
-
-  // useEffect per mostrare un alert quando l'utente clicca sulla checkbox per pubblicare un articolo
+  const [formVisible, setFormVisible] = useState(false);
+  const [backgroundColor, setBackgroundColor] = useState("#ffffff");
   useEffect(() => {
     if (formData.published) {
       alert("Articolo pubblicato!");
