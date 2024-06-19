@@ -61,7 +61,7 @@ const Form = () => {
       setBackgroundColor((prevColor) =>
         prevColor === "#FEA700" ? "#8A2633" : "#FEA700"
       );
-    }, 1000);
+    }, 5000);
 
     return () => clearInterval(interval);
   }, []);
