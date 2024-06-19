@@ -49,7 +49,7 @@ const Form = () => {
   });
   const [editIndex, setEditIndex] = useState(null);
   const [formVisible, setFormVisible] = useState(false);
-  const [backgroundColor, setBackgroundColor] = useState("#ffffff");
+  const [backgroundColor, setBackgroundColor] = useState("#FEA700");
   useEffect(() => {
     if (formData.published) {
       alert("Articolo pubblicato!");
@@ -59,9 +59,9 @@ const Form = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setBackgroundColor((prevColor) =>
-        prevColor === "#ffffff" ? "#000000" : "#ffffff"
+        prevColor === "#FEA700" ? "#8A2633" : "#FEA700"
       );
-    }, 5000);
+    }, 1000);
 
     return () => clearInterval(interval);
   }, []);
