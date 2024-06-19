@@ -1,68 +1,88 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-}
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-h1 {
-  color: #011627;
-  text-align: center;
-  padding-top: 50px;
-}
-
 body {
-  color: #ffffff;
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  color: #ffffff;
   background-color: #e71d36;
 }
+
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100%;
   padding-top: 50px;
+  height: 100%;
   overflow-y: auto;
 }
 
 form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  width: 300px;
+  width: 100%;
+  max-width: 600px;
   margin: 10px auto;
   padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
   background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 50px;
 }
 
-label {
-  text-align: center;
+form label {
+  display: block;
+  margin-bottom: 10px;
   color: #333333;
 }
 
-input {
-  padding: 10px;
+form input[type="text"],
+form textarea,
+form select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
 }
 
-.btnSubmit {
-  padding: 10px;
+form textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+form select {
+  background-color: #f0f0f0;
+}
+
+form div.tags {
+  margin-bottom: 15px;
+}
+
+form div.tags label {
+  margin-right: 15px;
+}
+
+form div.tags input[type="checkbox"] {
+  margin-right: 8px;
+}
+
+form button.btnSubmit {
+  padding: 12px;
   border: none;
   border-radius: 5px;
   background-color: #007bff;
   color: #ffffff;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, transform 0.3s;
 }
 
-.btnSubmit:hover {
+form button.btnSubmit:hover {
   background-color: #0056b3;
+  transform: scale(1.05);
 }
 
 ul {
@@ -71,19 +91,19 @@ ul {
 }
 
 li {
-  margin-bottom: 10px;
-  padding: 10px;
+  margin-bottom: 30px;
+  padding: 20px;
   border: 1px solid #ccc;
-  border-radius: 5px;
-  width: 300px;
-  margin: 10px auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  border-radius: 10px;
   background-color: #2ec4b6;
-  text-overflow: ellipsis;
-  text-overflow: hidden;
   color: #011627;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+li:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 .btnDelete,
@@ -130,6 +150,7 @@ li {
 .btnFlex {
   display: flex;
   gap: 10px;
+  padding: 10px 0;
 }
 
 .postTitle {
@@ -147,4 +168,52 @@ li {
 
 img {
   width: 100%;
+  display: block;
+}
+
+.cardFooter {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.listItem {
+  display: flex;
+  flex-wrap: wrap;
+  width: calc(100% / 3 - 20px);
+  gap: 20px;
+}
+
+.itemCard {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.btnToggleForm {
+  all: unset;
+  cursor: pointer;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+  color: #333333;
+  margin-bottom: 25px;
 }

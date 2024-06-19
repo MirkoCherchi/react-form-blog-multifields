@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FiEdit as Edit, FiSave as Save } from "react-icons/fi";
 import Card from "./Card";
 
@@ -48,6 +48,25 @@ const Form = () => {
     published: false,
   });
   const [editIndex, setEditIndex] = useState(null);
+  const [formVisible, setFormVisible] = useState(false); // Stato per gestire la visibilità del form
+  const [backgroundColor, setBackgroundColor] = useState("#ffffff"); // Stato per gestire il colore di sfondo
+
+  // useEffect per mostrare un alert quando l'utente clicca sulla checkbox per pubblicare un articolo
+  useEffect(() => {
+    if (formData.published) {
+      alert("Articolo pubblicato!");
+    }
+  }, [formData.published]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setBackgroundColor((prevColor) =>
+        prevColor === "#ffffff" ? "#000000" : "#ffffff"
+      );
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const handleField = (name, value) => {
     setFormData((prev) => ({
@@ -74,6 +93,7 @@ const Form = () => {
       image: "",
       published: false,
     });
+    setFormVisible(false);
   };
 
   const handleDelete = (index) => {
@@ -92,80 +112,101 @@ const Form = () => {
       image: postToEdit.image,
       published: postToEdit.published,
     });
+    setFormVisible(true);
+  };
+
+  const toggleFormVisibility = () => {
+    setFormVisible((prev) => !prev);
+    if (!formVisible) {
+      setFormData({
+        title: "",
+        content: "",
+        category: "",
+        tags: [],
+        image: "",
+        published: false,
+      });
+      setEditIndex(null);
+    }
   };
 
   return (
     <>
-      <div className="container">
-        <form onSubmit={handleSubmit}>
-          <input
-            name="title"
-            type="text"
-            placeholder="Title"
-            value={formData.title}
-            onChange={(e) => handleField("title", e.target.value)}
-          />
-          <textarea
-            name="content"
-            placeholder="Content"
-            value={formData.content}
-            onChange={(e) => handleField("content", e.target.value)}
-          />
-          <select
-            name="category"
-            value={formData.category}
-            onChange={(e) => handleField("category", e.target.value)}
-          >
-            <option value="">Select Category</option>
-            {listaCategorie.map((category, index) => (
-              <option key={index} value={category}>
-                {category}
-              </option>
-            ))}
-          </select>
-          <div>
-            <label>Tags:</label>
-            {listaTags.map((tag, tagIndex) => (
-              <label key={tagIndex}>
-                <input
-                  type="checkbox"
-                  checked={formData.tags.includes(tag)}
-                  onChange={() => {
-                    const currentTags = formData.tags;
-                    const updatedTags = currentTags.includes(tag)
-                      ? currentTags.filter((t) => t !== tag)
-                      : [...currentTags, tag];
-                    handleField("tags", updatedTags);
-                  }}
-                />
-                {tag}
-              </label>
-            ))}
-          </div>
-          <input
-            name="image"
-            type="text"
-            placeholder="Image URL"
-            value={formData.image}
-            onChange={(e) => handleField("image", e.target.value)}
-          />
-          <label>
+      <div className="container" style={{ backgroundColor }}>
+        <button className="btnToggleForm" onClick={toggleFormVisibility}>
+          {formVisible ? "Close Form" : "Open Form"}
+        </button>
+        {formVisible && (
+          <form onSubmit={handleSubmit}>
             <input
-              name="published"
-              type="checkbox"
-              checked={formData.published}
-              onChange={(e) => handleField("published", e.target.checked)}
+              name="title"
+              type="text"
+              placeholder="Title"
+              value={formData.title}
+              onChange={(e) => handleField("title", e.target.value)}
             />
-            Published
-          </label>
-          <button
-            className={`btnSubmit ${editIndex !== null ? "btnSave" : ""}`}
-            type="submit"
-          >
-            {editIndex !== null ? <Save className="iconSave" /> : "Submit"}
-          </button>
-        </form>
-        <div>
+            <textarea
+              name="content"
+              placeholder="Content"
+              value={formData.content}
+              onChange={(e) => handleField("content", e.target.value)}
+            />
+            <select
+              name="category"
+              value={formData.category}
+              onChange={(e) => handleField("category", e.target.value)}
+            >
+              <option value="">Select Category</option>
+              {listaCategorie.map((category, index) => (
+                <option key={index} value={category}>
+                  {category}
+                </option>
+              ))}
+            </select>
+            <div>
+              <label>Tags:</label>
+              {listaTags.map((tag, tagIndex) => (
+                <label key={tagIndex}>
+                  <input
+                    type="checkbox"
+                    checked={formData.tags.includes(tag)}
+                    onChange={() => {
+                      const currentTags = formData.tags;
+                      const updatedTags = currentTags.includes(tag)
+                        ? currentTags.filter((t) => t !== tag)
+                        : [...currentTags, tag];
+                      handleField("tags", updatedTags);
+                    }}
+                  />
+                  {tag}
+                </label>
+              ))}
+            </div>
+            <input
+              name="image"
+              type="text"
+              placeholder="Image URL"
+              value={formData.image}
+              onChange={(e) => handleField("image", e.target.value)}
+            />
+            <label>
+              <input
+                name="published"
+                type="checkbox"
+                checked={formData.published}
+                onChange={(e) => handleField("published", e.target.checked)}
+              />
+              Published
+            </label>
+            <button
+              className={`btnSubmit ${editIndex !== null ? "btnSave" : ""}`}
+              type="submit"
+            >
+              {editIndex !== null ? <Save className="iconSave" /> : "Submit"}
+            </button>
+          </form>
+        )}
+        <div className="itemCard">
           <ul>
             {postArray.map((post, index) => (
               <li className="listItem" key={index}>
