@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { TiDeleteOutline as Delete } from "react-icons/ti";
 import { FiEdit as Edit, FiSave as Save } from "react-icons/fi";
 import Card from "./Card";
 

@@ -1,4 +1,3 @@
-import React from "react";
 import { TiDeleteOutline as Delete } from "react-icons/ti";
 import { FiEdit as Edit } from "react-icons/fi";
 
